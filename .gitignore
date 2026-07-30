@@ -1,0 +1,36 @@
+# Binary / dist artifacts
+*.exe
+*.dll
+*.so
+*.dylib
+*.pyc
+__pycache__/
+*.egg-info/
+
+# Node
+node_modules/
+package-lock.json
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temp / cache
+.cache/
+*.log
+*.tmp
+
+# Large model files
+*.bin
+*.pt
+*.ckpt
+*.safetensors
+
+# Migration metadata (contains local paths)
+_bm_skillid_migration.json

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Source-Grounded MCP"
+  short_description: "从本地课程资料创建、测试、索引并注册可追溯的只读 MCP"
+  default_prompt: "Use $source-grounded-mcp to create, test, and register a local course-material MCP from my approved folder."

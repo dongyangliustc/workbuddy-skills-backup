@@ -1,0 +1,4 @@
+interface:
+  display_name: "风暴知识工坊"
+  short_description: "从资料索引到深度学习的全流程知识制作Agent — 融合STORM多视角研究法+大刘10步闭环学习法"
+  default_prompt: "Use $storm-knowledge-crafter to systematically learn a domain deeply — setup evidence-backed MCP from materials, then run the 10-step STORM learning loop for complete understanding."

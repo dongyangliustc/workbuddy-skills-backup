@@ -1,0 +1,3 @@
+# Codex replaces this empty policy after the user confirms the source table.
+source_root: .
+sources: []

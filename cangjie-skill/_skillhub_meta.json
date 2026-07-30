@@ -1,0 +1,19 @@
+{
+  "name": "book2skill",
+  "installedAt": 1780480756714,
+  "source": "marketplace",
+  "version": "1.0.2",
+  "skillId": "skill_2053081431465295872",
+  "examples_zh": [
+    "把《金字塔原理》拆成可调用的写作诊断、结构重排和结论先行表达技能。",
+    "从《高效能人士的七个习惯》提取原子化行动技能，写明触发场景、步骤和练习方式。",
+    "将一本创业方法论书蒸馏为市场验证、用户访谈和假设测试三个可复用技能。"
+  ],
+  "examples_en": [
+    "Turn The Pyramid Principle into callable skills for writing diagnosis, structure reordering, and conclusion-first communication.",
+    "Extract atomic action skills from The 7 Habits of Highly Effective People, including triggers, steps, and practice routines.",
+    "Distill a startup methodology book into three reusable skills: market validation, user interviews, and hypothesis testing."
+  ],
+  "iconSource": "letter:auto",
+  "skillName": "cangjie-skill"
+}

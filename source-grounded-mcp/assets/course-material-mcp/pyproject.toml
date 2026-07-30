@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/course_material_mcp"]
+
+[project]
+name = "source-grounded-course-mcp"
+version = "0.1.0"
+description = "Read-only MCP for citable local course materials."
+requires-python = ">=3.11"
+dependencies = [
+  "mcp[cli]>=1.27,<2",
+  "pypdf>=6,<7",
+  "PyYAML>=6,<7",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=9,<10"]
+
+[project.scripts]
+course-material-mcp = "course_material_mcp.cli:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

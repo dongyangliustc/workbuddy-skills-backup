@@ -1,0 +1,4 @@
+# PES Sketch — dependency lock (2026-06-05)
+# Install: pip install -r requirements.txt
+python-pptx==1.0.2
+PyYAML==6.0.2
