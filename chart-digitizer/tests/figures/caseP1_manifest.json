@@ -1,0 +1,453 @@
+{
+  "generator": "make_pdf_cases.py",
+  "pymupdf": "1.28.2",
+  "paper": {
+    "pdf": "C:\\Users\\Administrator.DESKTOP-7RU274I\\.workbuddy\\skills\\chart-digitizer\\tests\\figures\\caseP1_paper.pdf",
+    "page_size": [
+      595.276,
+      841.89
+    ],
+    "elements": {
+      "body_left": {
+        "x0": 50.0,
+        "baseline_y0": 52.0,
+        "n_lines": 9,
+        "size": 10.0,
+        "line_widths": [
+          231.8,
+          209.0,
+          197.3,
+          223.4,
+          196.7,
+          213.4,
+          211.2,
+          215.7,
+          204.5
+        ],
+        "trap_block_line_index": 2,
+        "trap_line_text": "Figure 3 for a particular set of fit parameters.",
+        "trap_block_n_lines": 9,
+        "midline_reference_index": 4,
+        "midline_reference_text": "as shown in Figure 3 for a particular set of fit"
+      },
+      "body_right": {
+        "x0": 305.0,
+        "baseline_y0": 52.0,
+        "n_lines": 4,
+        "size": 10.0,
+        "line_widths": [
+          197.9,
+          177.8,
+          191.2,
+          210.1
+        ]
+      },
+      "fig3": {
+        "graphics_rect": [
+          75.0,
+          195.0,
+          280.0,
+          315.0
+        ],
+        "legend": [
+          {
+            "name": "TD 415 K",
+            "hex": "#7f7fff",
+            "baseline_y": 233.4,
+            "text_x0": 101.0,
+            "line_bbox_y": [
+              226.27,
+              235.38
+            ],
+            "box_rect": [
+              93.0,
+              229.58,
+              98.0,
+              232.08
+            ],
+            "nested_core": null
+          },
+          {
+            "name": "TD 493 K",
+            "hex": "#7fe57f",
+            "baseline_y": 240.1,
+            "text_x0": 101.0,
+            "line_bbox_y": [
+              232.97,
+              242.08
+            ],
+            "box_rect": [
+              93.0,
+              236.28,
+              98.0,
+              238.78
+            ],
+            "nested_core": "#3fd83f"
+          },
+          {
+            "name": "RH",
+            "hex": "#ff7f7f",
+            "baseline_y": 246.8,
+            "text_x0": 101.0,
+            "line_bbox_y": [
+              239.67,
+              248.78
+            ],
+            "box_rect": [
+              93.0,
+              242.98,
+              98.0,
+              245.48
+            ],
+            "nested_core": null
+          }
+        ],
+        "legend_text_x": 101.0,
+        "legend_baseline_step": 6.7,
+        "legend_size": 6.6,
+        "axis_title": {
+          "text": "Photon Energy (eV)",
+          "size": 9.5,
+          "baseline_y": 337.0
+        },
+        "panel_label": {
+          "text": "m/z 70",
+          "size": 9.5,
+          "baseline_y": 286.2
+        },
+        "tick_rects": [
+          [
+            70.0,
+            290.75,
+            75.0,
+            291.25
+          ],
+          [
+            70.0,
+            266.75,
+            75.0,
+            267.25
+          ],
+          [
+            70.0,
+            242.75,
+            75.0,
+            243.25
+          ],
+          [
+            70.0,
+            218.75,
+            75.0,
+            219.25
+          ]
+        ],
+        "tick_size_pt": [
+          5.0,
+          0.5
+        ],
+        "curves": [
+          {
+            "color": "#7f7fff"
+          },
+          {
+            "color": "#7fe57f"
+          },
+          {
+            "color": "#ff7f7f"
+          }
+        ],
+        "label": "3",
+        "page_no": 0,
+        "column": "left",
+        "caption": {
+          "text": "Fig. 3 | Test figure for digitizer.",
+          "baseline_y": 357.0,
+          "size": 9.0,
+          "separator": "|",
+          "n_lines": 1
+        }
+      },
+      "fig5a": {
+        "graphics_rect": [
+          75.0,
+          385.0,
+          280.0,
+          455.0
+        ],
+        "legend": [
+          {
+            "name": "RH",
+            "hex": "#ff7f7f",
+            "baseline_y": 407.4,
+            "text_x0": 101.0,
+            "line_bbox_y": [
+              400.27,
+              409.38
+            ],
+            "box_rect": [
+              93.0,
+              403.58,
+              98.0,
+              406.08
+            ],
+            "nested_core": null
+          }
+        ],
+        "legend_text_x": 101.0,
+        "legend_baseline_step": 6.7,
+        "legend_size": 6.6,
+        "axis_title": {
+          "text": "Photon Energy (eV)",
+          "size": 9.5,
+          "baseline_y": 477.0
+        },
+        "panel_label": {
+          "text": "m/z 70",
+          "size": 9.5,
+          "baseline_y": 438.2
+        },
+        "tick_rects": [
+          [
+            70.0,
+            419.75,
+            75.0,
+            420.25
+          ]
+        ],
+        "tick_size_pt": [
+          5.0,
+          0.5
+        ],
+        "curves": [
+          {
+            "color": "#ff7f7f"
+          }
+        ],
+        "label": "5",
+        "page_no": 0,
+        "column": "left",
+        "caption": {
+          "text": "Fig. 5 | First duplicate label for ambiguity.",
+          "baseline_y": 497.0,
+          "size": 9.0,
+          "n_lines": 1
+        }
+      },
+      "fig5b": {
+        "graphics_rect": [
+          75.0,
+          530.0,
+          280.0,
+          600.0
+        ],
+        "legend": [
+          {
+            "name": "RH",
+            "hex": "#ff7f7f",
+            "baseline_y": 552.4,
+            "text_x0": 101.0,
+            "line_bbox_y": [
+              545.27,
+              554.38
+            ],
+            "box_rect": [
+              93.0,
+              548.58,
+              98.0,
+              551.08
+            ],
+            "nested_core": null
+          }
+        ],
+        "legend_text_x": 101.0,
+        "legend_baseline_step": 6.7,
+        "legend_size": 6.6,
+        "axis_title": {
+          "text": "Photon Energy (eV)",
+          "size": 9.5,
+          "baseline_y": 622.0
+        },
+        "panel_label": {
+          "text": "m/z 70",
+          "size": 9.5,
+          "baseline_y": 583.2
+        },
+        "tick_rects": [
+          [
+            70.0,
+            564.75,
+            75.0,
+            565.25
+          ]
+        ],
+        "tick_size_pt": [
+          5.0,
+          0.5
+        ],
+        "curves": [
+          {
+            "color": "#ff7f7f"
+          }
+        ],
+        "label": "5",
+        "page_no": 0,
+        "column": "left",
+        "caption": {
+          "text": "Fig. 5 | Second duplicate label for ambiguity.",
+          "baseline_y": 642.0,
+          "size": 9.0,
+          "n_lines": 1
+        }
+      },
+      "fig4": {
+        "graphics_rect": [
+          330.0,
+          195.0,
+          510.0,
+          315.0
+        ],
+        "legend": [
+          {
+            "name": "TD 415 K",
+            "hex": "#7f7fff",
+            "baseline_y": 233.4,
+            "text_x0": 356.0,
+            "line_bbox_y": [
+              226.27,
+              235.38
+            ],
+            "box_rect": [
+              348.0,
+              229.58,
+              353.0,
+              232.08
+            ],
+            "nested_core": null
+          },
+          {
+            "name": "RH",
+            "hex": "#ff7f7f",
+            "baseline_y": 240.1,
+            "text_x0": 356.0,
+            "line_bbox_y": [
+              232.97,
+              242.08
+            ],
+            "box_rect": [
+              348.0,
+              236.28,
+              353.0,
+              238.78
+            ],
+            "nested_core": null
+          }
+        ],
+        "legend_text_x": 356.0,
+        "legend_baseline_step": 6.7,
+        "legend_size": 6.6,
+        "axis_title": {
+          "text": "Intensity (arb. units)",
+          "size": 9.5,
+          "baseline_y": 337.0
+        },
+        "panel_label": {
+          "text": "m/z 115",
+          "size": 9.5,
+          "baseline_y": 286.2
+        },
+        "tick_rects": [
+          [
+            325.0,
+            290.75,
+            330.0,
+            291.25
+          ],
+          [
+            325.0,
+            266.75,
+            330.0,
+            267.25
+          ],
+          [
+            325.0,
+            242.75,
+            330.0,
+            243.25
+          ],
+          [
+            325.0,
+            218.75,
+            330.0,
+            219.25
+          ]
+        ],
+        "tick_size_pt": [
+          5.0,
+          0.5
+        ],
+        "curves": [
+          {
+            "color": "#7f7fff"
+          },
+          {
+            "color": "#ff7f7f"
+          }
+        ],
+        "label": "4",
+        "page_no": 0,
+        "column": "right",
+        "caption": {
+          "text": "Fig. 4 | Geometrically similar second figure.",
+          "baseline_y": 357.0,
+          "size": 9.0,
+          "separator": "|",
+          "n_lines": 1
+        }
+      }
+    },
+    "table_captions": [],
+    "ambiguous_labels": [
+      "5"
+    ]
+  },
+  "fallback": {
+    "pdf": "C:\\Users\\Administrator.DESKTOP-7RU274I\\.workbuddy\\skills\\chart-digitizer\\tests\\figures\\caseP1_fallback.pdf",
+    "pages": {
+      "raster": {
+        "page_no": 0,
+        "page_covering_raster": [
+          0.0,
+          0.0,
+          595.276,
+          841.89
+        ],
+        "figure_raster": [
+          60.0,
+          80.0,
+          460.0,
+          380.0
+        ],
+        "tiny_raster": [
+          500.0,
+          500.0,
+          505.0,
+          505.0
+        ],
+        "expected_source": "raster",
+        "expected_count": 1
+      },
+      "vector": {
+        "page_no": 1,
+        "graphics_rect": [
+          80.0,
+          120.0,
+          440.0,
+          360.0
+        ],
+        "expected_source": "vector-cluster",
+        "expected_count": 1,
+        "max_confidence": 0.4
+      }
+    }
+  }
+}

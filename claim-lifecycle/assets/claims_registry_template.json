@@ -1,0 +1,51 @@
+# 主张注册表模板（Claim Registry Template）
+
+使用方式：
+1. 复制为 `registry/claims.json`（脚本读取的权威格式），或 `registry/claims.yaml`（与原项目 ecosystem 兼容）。
+2. `extract_claims.py` 可自动生成新卡（statement/kind/provenance/unverified）。
+3. `anchor_claims.py` 机器锚定；人工周报复核后再升级。
+
+字段与受控值见 `references/metadata_schema.md`。
+
+## JSON 规范（stdlib 解析）
+
+```json
+[
+  {
+    "id": "clm-0001",
+    "statement": "原子断言，一句可验证的主张",
+    "source_context": "出处文档/对话/日期",
+    "claim_kind": "fact",
+    "provenance": "ideation",
+    "epistemic_status": "unverified",
+    "project_module": ["module_a"],
+    "evidence_chain": ["src-001"],
+    "anchor_locator": null,
+    "last_verified": "2026-08-27",
+    "reviewer": "DY"
+  }
+]
+```
+
+## YAML（项目兼容格式，作用等同）
+
+```yaml
+claims:
+  - id: "clm-0001"
+    statement: "原子断言，一句可验证的主张"
+    source_context: "出处文档/对话/日期"
+    claim_kind: "fact"
+    provenance: "ideation"
+    epistemic_status: "unverified"
+    project_module: ["module_a"]
+    evidence_chain: ["src-001"]
+    anchor_locator: null
+    last_verified: "2026-08-27"
+    reviewer: "DY"
+```
+
+## 受控值速查
+
+- `claim_kind`: fact / derivation / hypothesis / workflow
+- `provenance`: literature / own_publication / synth_summary / ideation
+- `epistemic_status`: benchmark_verified / literature_supported / consistent / unverified / conflicting / refuted / superseded / stale
