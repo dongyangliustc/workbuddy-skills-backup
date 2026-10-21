@@ -1,0 +1,45 @@
+# Binary / dist artifacts
+*.exe
+*.dll
+*.so
+*.dylib
+*.pyc
+__pycache__/
+*.egg-info/
+
+# Node
+node_modules/
+package-lock.json
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temp / cache
+.cache/
+*.log
+*.tmp
+
+# Large model files
+*.bin
+*.pt
+*.ckpt
+*.safetensors
+
+# Migration metadata (contains local paths)
+_bm_skillid_migration.json
+
+# Bulk third-party resources excluded from backup (marker README.md inside each dir is kept)
+qchem-agent/references/qchem-6.1.1/*
+!qchem-agent/references/qchem-6.1.1/README.md
+nature-figure/assets/*
+!nature-figure/assets/README.md
+
+# Local WorkBuddy state dirs accidentally nested inside skill folders
+.workbuddy/
