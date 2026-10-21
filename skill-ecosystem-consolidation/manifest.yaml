@@ -1,0 +1,17 @@
+name: skill-ecosystem-consolidation
+version: 1.1.0
+description: >
+  Declarative manifest for auditing and consolidating the WorkBuddy skill
+  ecosystem. SKILL.md carries the mechanism facts, merge discipline, strict-YAML
+  requirement, and independent-review protocol; the regression scripts load only
+  when running post-merge checks.
+
+always_load:
+  - SKILL.md
+
+references:
+  on_demand:
+    - condition: running the five-item structural regression check after a merge, or capturing a before/after baseline
+      path: references/final_verify.py
+    - condition: strict PyYAML validation of every SKILL.md frontmatter and manifest.yaml after a merge (catches illegal unquoted scalars that regex misses)
+      path: references/yaml_verify.py
