@@ -1,0 +1,9 @@
+# PES Sketch Skill — version & changelog
+version: 2.0.0
+date: 2026-06-05
+status: stable
+description: 反应势能面（PES）草图生成器 + 批量调参工具
+
+changelog:
+  - 2.0.0 (2026-06-05): 阶段性封装；清理 add-in 开发中间产物；锁定依赖版本；规范化接口
+  - 1.x (2026-06-04): 核心 PES 生成引擎完成；GUI/CLI 调参工具完成；PPAM 加载项开发中进行中

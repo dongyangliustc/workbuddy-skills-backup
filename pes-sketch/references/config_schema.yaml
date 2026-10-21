@@ -1,0 +1,86 @@
+# ====================================================================
+# PES Sketch — YAML 配置文件参考
+# ====================================================================
+# 将此文件复制到项目目录中，按需修改字段即可使用。
+# 用法: python pes_sketch.py my_config.yaml -o my_pes.pptx
+# ====================================================================
+
+# ---- 必填 ----
+title: "香草醛热解反应势能面"       # PPT 标题和每张幻灯片的标题
+author: "Author Name (可选)"        # 标题页作者
+
+# ---- 幻灯片布局模式 ----
+layout: "single"                     # "single"  = 单页全景 PES 图
+                                     # "stepwise" = 每步反应一页，逐步展示
+
+# ---- 坐标轴设置 (可选，有默认值) ----
+axis:
+  x_label: "Reaction Coordinate"     # X 轴标签（分支反应时自动隐藏）
+  y_label: "Energy (kcal/mol)"       # Y 轴标签
+  y_range: [-15, 35]                 # Y 轴范围 [min, max]，不填则自动计算
+  # y_step: 5                        # (可选) Y 轴刻度步长
+  # hide_x_axis: false               # (可选) 强制隐藏 X 轴，默认 false
+                                     #   分支反应（竞争反应）会自动隐藏 X 轴
+
+# ---- 物种定义 (至少 2 个) ----
+# type 支持三种：
+#   well        — 势阱（反应物、中间体、产物）
+#   barrier     — 过渡态（需要 connects 字段指定连接关系）
+#   bimolecular — 双分子反应物
+species:
+  # ---- 反应物 ----
+  - name: "R"
+    type: "bimolecular"
+    energy: 0.0                       # 相对能量 (kcal/mol)
+    position: 0                       # 横轴位置（可选，不填则自动分配）
+    # color: "#34495E"                # 颜色（可选，默认黑色）
+    # image: "path/to/R.png"          # 分子结构图路径（可选）
+
+  # ---- 过渡态 1 ----
+  - name: "TS1"
+    type: "barrier"
+    energy: 25.3
+    position: 1
+    # color: "#C0392B"
+    connects: ["R", "Int1"]           # 连接的两个物种名称
+    # image: "path/to/TS1.png"
+
+  # ---- 中间体 ----
+  - name: "Int1"
+    type: "well"
+    energy: 15.7
+    position: 2
+    # color: "#2B5B84"
+    # image: "path/to/Int1.png"
+
+  # ---- 过渡态 2 ----
+  - name: "TS2"
+    type: "barrier"
+    energy: 22.1
+    position: 3
+    # color: "#C0392B"
+    connects: ["Int1", "P"]
+    # image: "path/to/TS2.png"
+
+  # ---- 产物 ----
+  - name: "P"
+    type: "well"
+    energy: -5.0
+    position: 4
+    # color: "#2B5B84"
+    # image: "path/to/P.png"
+
+
+# ====================================================================
+# 颜色参考
+# ====================================================================
+# 默认颜色 (按类型，统一黑色)：
+#   well        → #000000 (黑色)
+#   barrier     → #000000 (黑色)
+#   bimolecular → #000000 (黑色)
+#
+# 推荐学术配色（自行指定 color 字段）：
+#   - 井/中间体: 不同深浅的蓝 (#2B5B84, #2980B9, #3498DB)
+#   - 过渡态:    红/橙 (#C0392B, #E74C3C, #D35400)
+#   - 产 物:    绿/蓝绿 (#27AE60, #16A085)
+#   - 反应物:    灰/蓝灰 (#7F8C8D, #34495E)
