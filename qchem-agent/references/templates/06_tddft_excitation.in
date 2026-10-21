@@ -1,0 +1,24 @@
+$comment
+TDDFT（线性响应）激发能 —— EOM-CCSD 的廉价替代，用于链长扫描与初筛。
+配方来源：手册 Q-Chem 6.1 Chapter 7 **Example 7.21（p.452）**，开壳层甲基过氧自由基。
+⚠ 关键（最易记错）：TDDFT 用 **EXCHANGE + CORRELATION + CIS_N_ROOTS** 触发，
+   **没有** METHOD TDDFT 这种写法。
+  RPA=FALSE（默认）为 TDA；RPA=TRUE 为完整 TDDFT。
+$end
+
+$molecule
+0 2
+C     0.0000000000    0.0000000000    0.0000000000
+H     0.0000000000    0.0000000000    1.0790000000
+H     0.9346000000    0.0000000000   -0.3596000000
+H    -0.4673000000   -0.8093000000   -0.3596000000
+$end
+
+$rem
+EXCHANGE            b            ! 或 b3lyp / pbe0 等（见 kb/values_observed.json: EXCHANGE）
+CORRELATION         lyp          ! 与 EXCHANGE 配对使用
+CIS_N_ROOTS         5
+BASIS               6-31+G*
+SCF_CONVERGENCE     7
+MEM_TOTAL           8000
+$end

@@ -1,0 +1,50 @@
+$comment
+IR spectrum: harmonic vibrational analysis with IR intensities.
+Manual basis (Q-Chem 6.1.1):
+  p.972  Sec 10.7.1 -- the vibman package computes frequencies plus infrared and
+         Raman activities; analytic Hessian used when available, otherwise finite
+         difference of gradients; CPSCF solved in segments automatically.
+  p.973  DORAMAN (Raman intensities are OFF by default), VIBMAN_PRINT, CPSCF_NSEG.
+  p.974  Example 10.28 -- standard OPT then FREQ two-segment job.
+IR intensities are printed by DEFAULT: no keyword required.
+  Output block: "INFRARED INTENSITIES (KM/MOL)" with "IR Intens:" and "TransDip".
+Frequency scaling factors and spectral broadening have NO $rem switch in 6.1.1
+  (FREQ_SCALE_FACTOR / FREQ_RANGE belong to $vibronic, i.e. vibronic electronic
+  spectra, manual p.991-992) -> apply scaling and line broadening in post-processing.
+$end
+
+$molecule
+0 1
+C   0.0000000000   0.0000000000   0.0000000000
+O   0.0000000000   0.0000000000   1.1300000000
+$end
+
+$rem
+JOBTYPE                 OPT
+METHOD                  cam-b3lyp
+BASIS                   aug-cc-pVTZ
+SCF_CONVERGENCE         8
+MAX_SCF_CYCLES          200
+GEOM_OPT_TOL_GRADIENT   30
+GEOM_OPT_TOL_DISPLACEMENT 120
+GEOM_OPT_TOL_ENERGY     100
+MEM_TOTAL               40000
+GUI                     2
+$end
+
+@@@
+
+$molecule
+read
+$end
+
+$rem
+JOBTYPE                 FREQ
+METHOD                  cam-b3lyp
+BASIS                   aug-cc-pVTZ
+SCF_GUESS               READ
+CPSCF_NSEG              2
+SCF_CONVERGENCE         8
+MEM_TOTAL               40000
+GUI                     2
+$end

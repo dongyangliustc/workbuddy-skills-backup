@@ -1,0 +1,34 @@
+$comment
+自旋翻转 TDDFT（SF-TDDFT）—— 适用于双自由基/键断裂/近简并体系，
+可在同一计算中同时得到低自旋与高自旋态。
+配方来源：手册 6.1 Chapter 7 **Example 7.23（p.454）**（TMM 双自由基，50-50 泛函）。
+$end
+
+$molecule
+0 3
+C     0.0000000000    0.0000000000    0.0000000000
+H     0.0000000000    0.0000000000    1.0790000000
+H     0.9346000000    0.0000000000   -0.3596000000
+H    -0.4673000000   -0.8093000000   -0.3596000000
+$end
+
+$rem
+EXCHANGE            gen          ! gen = 走 $xc_functional 自定义
+BASIS               6-31G*
+SCF_GUESS           core
+SCF_CONVERGENCE     10
+MAX_SCF_CYCLES      100
+SPIN_FLIP           1
+CIS_N_ROOTS         6
+CIS_CONVERGENCE     10
+MAX_CIS_CYCLES      100
+MEM_TOTAL           8000
+$end
+
+$xc_functional
+X    HF      0.50
+X    S       0.08
+X    B       0.42
+C    VWN     0.19
+C    LYP     0.81
+$end

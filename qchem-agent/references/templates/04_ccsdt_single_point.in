@@ -1,0 +1,25 @@
+$comment
+CCSD(T) 高精度单点能（本课题组既有 C12H- 计算用的就是这套口径）。
+配方来源：官方样例 ccman/CCSD_opt.in、CC_FNO.in；
+内存/收敛关键字 MEM_TOTAL / CC_MEMORY / CC_CONVERGENCE / SCF_CONVERGENCE
+均为手册定义（kb/keywords.json 内可查页码）。
+$end
+
+$molecule
+0 1
+O     0.0000000000    0.0000000000    0.0000000000
+H     0.0000000000    0.0000000000    0.9572000000
+H     0.9227000000    0.0000000000   -0.2575000000
+$end
+
+$rem
+JOBTYPE            SP
+METHOD             CCSD(T)
+BASIS              aug-cc-pVTZ
+SCF_CONVERGENCE    8          ! SCF 收敛限（10^-8）
+CC_CONVERGENCE     6          ! CC 振幅收敛限（10^-6）
+MAX_SCF_CYCLES     100
+N_FROZEN_CORE      1          ! 冻结核心轨道数（FC=auto，亦可给整数）
+MEM_TOTAL          28000      ! 须 <= SLURM --mem
+CC_MEMORY          20000      ! CC 模块内存，须 < MEM_TOTAL
+$end

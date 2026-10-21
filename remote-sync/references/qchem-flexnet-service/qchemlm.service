@@ -1,0 +1,40 @@
+; Q-Chem FlexNet 许可服务 systemd 单元（HPCCube wuzh02 / login02）
+; 安装路径：/etc/systemd/system/qchemlm.service
+;
+; 关键设计说明（均为真机实测结论，勿随意改动）：
+;   1. Type=forking —— lmgrd **会自行 daemonize**（实测：前台调用 0 秒返回 0
+;      并留下 PPID=1 的后台进程）。用 simple 会被 systemd 判为"已退出"。
+;   2. User=hjbustc —— flexnet/ 目录属主为 hjbustc（组只有 r-x，不可写），
+;      以属主运行才能就地写 .logger 套接字与日志；这与原始部署布局一致。
+;   3. WorkingDirectory 必须可写 —— lmgrd 在 cwd 创建 .logger 套接字；
+;      目录不可写时 lmgrd 会静默失败。
+;   4. Environment=PATH 必须含 flexnet/bin —— 许可证 VENDOR 行未写守护进程
+;      绝对路径，lmgrd 靠 PATH 找 qchemlm；缺了会导致 vendor daemon 起不来。
+;   5. Restart=always —— 这是"重启后失效/进程死后无人管"的根治手段。
+;   6. 许可证 SERVER 行**必须显式写端口** —— 不写端口时 lmgrd 在 27000 被占
+;      的情况下会静默自增到 27001/27002，而客户端按默认 27000 连接 →
+;      服务"看着在跑"但客户端全部连不上（实测踩过）。
+
+[Unit]
+Description=Q-Chem FlexNet license server (lmgrd + qchemlm)
+Documentation=file:///work/share/hjbustc/software/qchem61/doc/README.FlexNet
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=forking
+User=hjbustc
+Group=hjbustc
+WorkingDirectory=/work/share/hjbustc/software/qchem61/flexnet
+Environment=PATH=/work/share/hjbustc/software/qchem61/flexnet/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ExecStart=/work/share/hjbustc/software/qchem61/flexnet/bin/lmgrd \
+          -c /work/share/hjbustc/software/qchem61/flexnet/etc/qchem_8791.lic \
+          -l +/work/share/hjbustc/software/qchem61/flexnet/logs/qchemlm.log
+Restart=always
+RestartSec=5
+LimitNOFILE=65536
+; 启动尚未完成不算失败（lmgrd 立即返回，实际就绪由 Restart/巡检保障）
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,153 @@
+; remote-sync 配置模板 — 复制本文件到 ~/.workbuddy/transfer.conf 并填写。
+; 优先级：用户配置(~/\.workbuddy/transfer.conf) > 本模板(默认值)。
+;
+; 环境变量引用：仅 `${VAR}` 或 `%VAR%` 会被展开（本机环境变量）。
+; ⚠️ 裸 `$VAR`（如 $PATH、$HOME）**不会**被展开，保留字面供远端 shell 使用
+; （env_setup 中需在远端展开的变量请用裸形式，避免误展开为本机值）。
+; 推荐把密钥路径放在环境变量中（如 RSYNC_SSH_KEY），配置文件不落盘明文口令。
+
+; ---------------------------------------------------------------------------
+; 服务器连接配置（可定义多个 profile：server:cluster1 / server:cluster2）
+; ---------------------------------------------------------------------------
+[server:default]
+; 必填：服务器地址 / 用户名
+host = __SERVER_IP__
+user = dy
+
+; 必填：SSH 私钥绝对路径（仅密钥认证）。推荐经环境变量注入：
+key_file = ${RSYNC_SSH_KEY}
+; 或使用口令认证（二选一）：
+;   password = ${GTRANSFER_PASSWORD}
+; 若 key_file 与 password 均未配置，加载报错。
+; 安全提示：口令认证弱于密钥，仅建议用于信任内网环境。
+
+; TOTP 二次验证（可选，超算系统常要求）：SSH 密码 = 口令 + 6 位动态验证码
+; secret 为 Base32（如 SO3PJUOL...），经环境变量注入：
+;   totp_secret = ${TOTP_SECRET}
+
+; 执行模式：direct（单机前台运行 g16）| slurm（sbatch+squeue 集群）
+;
+; ⚠️ 合规约束（compliance harness）：受管超算集群（如中国科大瀚海系列）
+; **强制 slurm**，direct 会被硬阻断（手册禁止在登录节点不经调度系统跑作业）。
+; 受管集群由 host 指纹自动识别，无需手工声明；也可用下方 server_class 显式覆盖。
+execution_mode = direct
+
+; 服务器类别（compliance harness，可选）：
+;   managed_cluster    → 受管超算集群（如 USTC 瀚海）：强制 slurm、禁 direct、
+;                        命令过白名单+黑名单
+;   commercial_cluster → 商业云超算（如 HPCCube）：约束强度与受管集群相同，
+;                        但权威依据文案为「商业算力平台服务规范」（2026-10-14 新增）
+;   workstation        → 无调度器的课题组自建机，允许 direct
+;   留空               → 按 host 自动判定（命中已知超算/商业云指纹 → 相应类别）
+; 用 `gtransfer check` 可查看当前生效的类别、策略出处与配额闸门。
+; server_class = managed_cluster
+
+; 地址族（可选，2026-10-14 新增）：auto | ipv4 | ipv6
+;   auto（默认）= 交由系统解析，不改变既有行为。
+;   部分域名同时发布 AAAA 记录但本机 IPv6 路由不可达 → 客户端优先 IPv6 会
+;   表现为「DNS 正常、SSH 超时」。此时设 ipv4 按 A 记录以字面量连接。
+;   HPCCube 实测：auto → 超时；ipv4 → 0.34s 建连成功。
+; address_family = ipv4
+
+; 求解器（可选，2026-10-14 新增）：gaussian | qchem
+;   gaussian（默认）：输入 .gjf，输出 .log，调用 `g16 < in.gjf > in.log`
+;   qchem           ：输入 .in ，输出 .out，调用 `qchem in out scratchname`
+;                     （三参数形式；scratchname 由 gtransfer 归一化后生成）
+; 两条通道都会把 $QCSCRATCH / $GAUSS_SCRDIR 指向任务目录下的 scratch/，
+; 避免多个作业共用平台默认 scratch 而互相覆盖。
+solver = gaussian
+
+; 远端 Q-Chem 可执行文件（可含路径；仅 solver = qchem 时生效）
+; Q-Chem 通常不在 module 系统中，需在 env_setup 里 source 其 qcenv.sh
+qchem_exec = qchem
+
+; 远端工作根目录：所有任务目录必须落在其下（防目录穿越）
+remote_work_root = ~/gtransfer
+
+; 远端 Gaussian 可执行文件（可含路径；默认 g16）
+gaussian_exec = g16
+
+; 远端环境设置命令（分号分隔，如 module load / export GAUSS_EXEDIR）
+; 示例（Gaussian 16 非 PATH 安装时）：
+;   gaussian_exec = /opt/g16/g16
+;   env_setup = export GAUSS_ROOT=/opt/g16; export GAUSS_EXEDIR=/opt/g16:/opt/g16/bsd
+; 示例（Q-Chem 组共享安装，HPCCube）：
+;   solver = qchem
+;   env_setup = source /work/share/hjbustc/software/qchem61/qcenv.sh
+env_setup =
+
+; profile 级配额覆盖（2026-10-14 新增；留空/0 = 沿用全局默认）
+; 不同平台的紧约束不同：超算受 QoS 限制，商业云受家目录配额限制
+; （HPCCube 实测 50GB），同一套阈值不适用。
+; HPCCube 参考值：家目录 50GB → min_disk_free_gb = 15
+;                 Q-Chem 为串行版 → 并行靠多作业并发 → max_concurrent_jobs 放宽
+;                 分区 MaxTime 333 天 → 自限 max_walltime_hours = 336
+; min_disk_free_gb = 15
+; max_concurrent_jobs = 16
+; max_queued_jobs = 32
+; max_cpus_per_job = 128
+; max_walltime_hours = 336
+
+; 单核内存上限（MB，0 = 不检查；2026-10-14 新增）
+; 平台若硬校验「申请内存 / 申请 CPU ≤ DefMemPerCPU」，超限会被 sbatch 直接拒绝；
+; 配置本项后 guard 在任何 I/O 之前拦截，并给出所需核数。
+; HPCCube 实测 DefMemPerCPU = 3944MB；--mem-per-cpu=4G(4096MB) 会被拒。
+; max_mem_per_cpu_mb = 3944
+
+; Slurm 作业默认参数（2026-10-14 新增；CLI 未显式指定时生效）
+; 把平台固定口径一次配置：既免去每次重复传参，也避免沿用不适用于该平台的内置默认
+; （内置默认 --mem-per-cpu=4G 在 HPCCube 会被拒，须改 3900M）。
+; partition = wzacnormal
+; cpus_per_task = 4
+; ntasks = 1
+; nodes = 1
+; mem_per_cpu = 3900M
+; walltime = 24:00:00
+; mem =                     ; 指定时取代 mem_per_cpu
+
+; 通用命令模式（可选）：非空则取代 g16 流程，执行任意远端命令。
+; 典型用于 Python/compute 类任务，命令输出重定向到 gtransfer.log：
+;   command = python main.py
+;   env_setup = source /home/ldy/miniconda3/etc/profile.d/conda.sh; conda activate pycs-sw
+; CLI 可用 --command 覆盖本配置。
+command =
+
+; 连接参数
+port = 22
+connect_timeout = 15
+poll_interval = 10
+max_retries = 3
+
+; ---------------------------------------------------------------------------
+; 传输配置（同样可按 profile 覆盖）
+; ---------------------------------------------------------------------------
+[transfer:default]
+; 上传文件 glob（submit --local 为目录时生效）
+;   Gaussian 用 *.gjf；Q-Chem 用 *.in
+upload_glob = *.gjf
+; 回传文件 glob（空格分隔多模式；CLI 可用 --download-glob 覆盖）
+;   Gaussian 用 *.log；Q-Chem 用 *.out *.fchk
+download_glob = *.log
+; 成功后是否保留远端工作目录
+;   注意：商业云家目录配额通常较小（HPCCube 50GB），建议 false 及时释放；
+;   若平台 sacct 不可用，保留 true 可规避「状态未知即删除」的竞态风险
+keep_remote = false
+
+; ---------------------------------------------------------------------------
+; 受管工具资产（Managed Tool Assets）—— Gaussian→ORCA 接力流程首选资产
+; ---------------------------------------------------------------------------
+; 瀚海22 上已部署 Multiwfn 与一份久经使用、关键词完善、适配大批量计算的
+; ORCA 输入模板。**默认优先使用原位资产**，不要在脚本里硬写路径。
+;
+; 代码侧登记于 guard.py 的 _MANAGED_TOOL_ASSETS，可编程读取：
+;     from gtransfer_lib import managed_tool_assets, resolve_asset, asset_sync_hint
+;     mw  = managed_tool_assets()["multiwfn"]
+;     tpl, source = resolve_asset("orca_template")   # source: managed_default | override
+;
+; 若集群实际路径与登记表不符，改 _MANAGED_TOOL_ASSETS 并补测试。
+; 若要在组内服务器(workstation)跑同一流程，把该 Multiwfn + template.inp
+; 拷贝固定到同一相对路径，保持两侧行为一致（asset_sync_hint() 会给出提示）。
+;
+; 多服务器场景可在各自 [server:xxx] 段覆盖：
+;   multiwfn_path   = ~/software/Multiwfn_3.8_dev_bin_Linux_noGUI/Multiwfn
+;   orca_template   = ~/software/Multiwfn_3.8_dev_bin_Linux_noGUI/template.inp

@@ -1,0 +1,19 @@
+$comment
+单点能（SP）—— 最基础的模板。
+配方来源：手册 6.1 Example 段（$rem 通用最小集）；关键字 JOBTYPE/BASIS/MEM_TOTAL
+均为官方手册定义 + 官方样例在用（见 kb/keywords.json）。
+$end
+
+$molecule
+0 1
+O     0.0000000000    0.0000000000    0.0000000000
+H     0.0000000000    0.0000000000    0.9572000000
+H     0.9227000000    0.0000000000   -0.2575000000
+$end
+
+$rem
+JOBTYPE          SP
+METHOD           B3LYP
+BASIS            6-31G*
+MEM_TOTAL        8000        ! 必填：须 <= SLURM --mem（MB）
+$end

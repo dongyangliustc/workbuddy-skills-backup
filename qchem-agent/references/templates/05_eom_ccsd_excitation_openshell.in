@@ -1,0 +1,27 @@
+$comment
+开壳层 EOM-EE-CCSD 激发能 —— 本项目（氰基多炔烃自由基 C2nCN）的主用模板。
+配方来源：官方样例 ccman/EEEOMCCSD_openshell.in（同为 charge=0, mult=2 开壳层），
+关键点：激发态用 **EE_STATES [irrep 各不可约表示的态数]** 指定，不是 "N_ROOTS"。
+$end
+
+$molecule
+0 2
+C     0.0000000000    0.0000000000    0.0000000000
+H     0.0000000000    0.0000000000    1.0790000000
+H     0.9346000000    0.0000000000   -0.3596000000
+H    -0.4673000000   -0.8093000000   -0.3596000000
+$end
+
+$rem
+JOBTYPE                    SP
+METHOD                     EOM-CCSD
+BASIS                      aug-cc-pVTZ
+N_FROZEN_CORE              0        ! 开壳层 + 小体系：显式给 0 更可控
+SCF_GUESS                  SAD
+EE_STATES                  [0,0,0,1]  ! 4 个不可约表示各取几个态（C1 时用最后一个）
+EOM_NGUESS_SINGLES         2
+EOM_DAVIDSON_CONVERGENCE   9
+CC_T_CONV                  9
+MEM_TOTAL                  28000    ! 须 <= SLURM --mem
+CC_MEMORY                  20000
+$end

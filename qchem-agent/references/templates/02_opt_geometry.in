@@ -1,0 +1,22 @@
+$comment
+几何优化（OPT）。
+配方来源：官方样例 ccman/EEEOMCCSD_opt.in 与 ccman/CCSD_opt.in 的 JOBTYPE/收敛关键字；
+GEOM_OPT_TOL_* 取值口径同官方样例。
+$end
+
+$molecule
+0 1
+O     0.0000000000    0.0000000000    0.0000000000
+H     0.0000000000    0.0000000000    0.9572000000
+H     0.9227000000    0.0000000000   -0.2575000000
+$end
+
+$rem
+JOBTYPE                  OPT
+METHOD                   B3LYP
+BASIS                    6-31G*
+GEOM_OPT_TOL_GRADIENT    3      ! 收敛限（3 为常用档）
+GEOM_OPT_TOL_DISPLACEMENT 3
+GEOM_OPT_TOL_ENERGY      4
+MEM_TOTAL                8000
+$end

@@ -1,0 +1,18 @@
+$comment
+频率/振动分析（FREQ）—— 用于确认驻点性质与零点能。
+配方来源：官方样例 freq/ 目录；关键字 JOBTYPE=FREQ 见 kb/values_observed.json。
+$end
+
+$molecule
+0 1
+O     0.0000000000    0.0000000000    0.0000000000
+H     0.0000000000    0.0000000000    0.9572000000
+H     0.9227000000    0.0000000000   -0.2575000000
+$end
+
+$rem
+JOBTYPE          FREQ
+METHOD           B3LYP
+BASIS            6-31G*
+MEM_TOTAL        8000
+$end
