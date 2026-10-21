@@ -1,0 +1,14 @@
+name: nature-ref-verifier
+version: 1.0.0
+description: >
+  Declarative manifest for multi-source reference verification. The field-by-field
+  comparison rules stay always loaded; the catalogue of recurring defect patterns
+  loads only when a discrepancy actually needs interpretation.
+
+always_load:
+  - SKILL.md
+
+references:
+  on_demand:
+    - condition: a mismatch was found and needs classification (volume/year conflict, DOI-year conflict, author-order anomaly, page deviation) or a known pattern must be matched
+      path: references/common-patterns.md

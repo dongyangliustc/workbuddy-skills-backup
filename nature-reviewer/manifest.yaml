@@ -1,0 +1,27 @@
+name: nature-reviewer
+version: 1.0.0
+description: >
+  Declarative manifest for the pre-submission reviewer simulation workflow.
+  Keeps the reviewer stance and report structure always loaded, and pulls
+  domain-specific gates and QA checklists only when the manuscript type or
+  the requested audit depth requires them.
+
+always_load:
+  - SKILL.md
+  - references/role-boundaries.md
+  - references/report-structure.md
+
+references:
+  on_demand:
+    - condition: assessing the manuscript along the standard review axes (novelty, significance, rigour, clarity)
+      path: references/review-axes.md
+    - condition: following the end-to-end reviewer workflow or deciding how far to go
+      path: references/reviewer-workflow.md
+    - condition: the manuscript is in a specific domain requiring extra gates (e.g. chemistry, biology, computational)
+      path: references/domain-specific-review-gates.md
+    - condition: journal editorial criteria and process constraints matter for the verdict
+      path: references/editorial criteria and processes.md
+    - condition: final QA pass, severity labelling, or reviewer-risk summary before delivering the report
+      path: references/qa-checklist.md
+    - condition: grounding claims about what reviewers may or may not demand
+      path: references/source-basis.md
