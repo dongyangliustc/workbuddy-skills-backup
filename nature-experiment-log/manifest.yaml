@@ -1,0 +1,24 @@
+name: nature-experiment-log
+version: 1.0.0
+description: >
+  Declarative manifest for standardized experiment logging. The log schema and
+  intake rules stay always loaded; worked examples and auxiliary templates load
+  only when the record type calls for them.
+
+always_load:
+  - SKILL.md
+
+references:
+  on_demand:
+    - condition: the entry is an electrochemical measurement and a worked example would resolve ambiguity
+      path: references/example-electrochemical.md
+    - condition: the entry is a thermal-stability measurement and a worked example would resolve ambiguity
+      path: references/example-thermal-stability.md
+    - condition: a general worked example of the standard log format is needed
+      path: references/example-log.md
+    - condition: the entry records an anomaly, deviation, or failed run
+      path: templates/anomaly-log.md
+    - condition: the user needs equipment tracking or instrument calibration records
+      path: templates/equipment-tracking.md
+    - condition: building or extending the experiment index across many sessions
+      path: templates/experiment-index.md

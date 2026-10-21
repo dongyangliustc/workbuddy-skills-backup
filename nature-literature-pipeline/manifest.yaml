@@ -1,0 +1,25 @@
+name: nature-literature-pipeline
+version: 1.0.0
+description: >
+  Declarative manifest for the automated literature discovery pipeline. The
+  pipeline stages and delivery format stay always loaded; the scoring rubric,
+  gap analysis, cron wiring, and compilation workflow load per stage.
+
+always_load:
+  - SKILL.md
+  - references/push-format.md
+
+references:
+  on_demand:
+    - condition: scoring candidate papers across the six dimensions or tuning relevance thresholds
+      path: references/scoring-system.md
+    - condition: fine-reading a selected paper and writing the structured note
+      path: references/note-template.md
+    - condition: analysing research gaps across the collected literature
+      path: references/gap-analysis.md
+    - condition: compiling a review or themed digest from accumulated notes
+      path: references/review-compilation-workflow.md
+    - condition: scheduling the pipeline as a recurring job
+      path: references/cron-setup.md
+    - condition: producing the delivered digest document
+      path: templates/literature-push-template.md
