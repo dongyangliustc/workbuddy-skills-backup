@@ -1,0 +1,35 @@
+name: docx-toolkit
+version: 1.0.0
+description: >
+  Merged toolkit for fine-grained docx structural operations. SKILL.md stays
+  small and routes to one scenario reference at a time, so a simple glyph fix
+  does not load the OMML pipeline or the figure-revision playbook.
+
+# Design note: this skill was consolidated on 2026-09-17 from four separate
+# skills (docx-glyph-fix, docx-omath-latex, docx-locate-and-comment-audit,
+# patent-fig-docx-revision). They had no content overlap — only 313 lines
+# combined — but four separate SKILL.md loaders cost more than one router plus
+# on-demand references.
+
+always_load:
+  - SKILL.md
+
+references:
+  on_demand:
+    - condition: symbols render as tofu boxes / missing glyphs (superscripts, subscripts, circled numbers, math symbols)
+      path: references/glyph-fix.md
+    - condition: formulas or symbols are embedded as PNG images, or unrendered \(...\) LaTeX text remains
+      path: references/omath-latex.md
+    - condition: locating text by fuzzy position (page/line/paragraph) or extracting all document comments
+      path: references/locate-and-comment.md
+    - condition: auditing figure/table number cross-references between main text and supplementary information
+      path: references/locate-and-comment.md
+    - condition: redrawing schematic figures and synchronizing them into a docx (patent disclosure / figures)
+      path: references/fig-revision.md
+
+scripts:
+  - scripts/apply_omath.py
+  - scripts/verify_omath.py
+  - scripts/cleanup_repackage.py
+  - scripts/dump_structure2.py
+  - scripts/dump_tables.py
